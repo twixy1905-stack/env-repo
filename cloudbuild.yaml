@@ -13,7 +13,7 @@ steps:
 
         git clone https://github.com/twixy1905-stack/${_ENV_REPO}.git && cd ${_ENV_REPO}
         git checkout ${_ENV_BRANCH}
-        sed -i "s|image: .*|image: ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/myapp:$SHORT_SHA|g" k8s
+        sed -i "s|image: .*|image: ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/myapp:$SHORT_SHA|g" k8s/deployment.yaml
         git commit -am "Update image to $SHORT_SHA"
         git push origin ${_ENV_BRANCH}
 
