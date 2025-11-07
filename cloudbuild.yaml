@@ -1,20 +1,21 @@
 # Cloud Build CD: update env-repo manifest (GitOps)
+
 steps:
   # Update env-repo manifest with new image tag
   - name: 'gcr.io/cloud-builders/git'
-  id: Clone env-repo
-  entrypoint: bash
-  args:
-    - -ceu
-    - |
-      git config --global user.email "ci-bot@$PROJECT_ID.iam.gserviceaccount.com"
-      git config --global user.name "Cloud Build Bot"
+    id: Clone env-repo
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        git config --global user.email "ci-bot@$PROJECT_ID.iam.gserviceaccount.com"
+        git config --global user.name "Cloud Build Bot"
 
-      git clone https://github.com/twixy1905-stack/${_ENV_REPO}.git && cd ${_ENV_REPO}
-      git checkout ${_ENV_BRANCH}
-      sed -i "s|image: .*|image: ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/myapp:$SHORT_SHA|g" k8s/deployment.yaml
-      git commit -am "Update image to $SHORT_SHA"
-      git push origin ${_ENV_BRANCH}
+        git clone https://github.com/twixy1905-stack/${_ENV_REPO}.git && cd ${_ENV_REPO}
+        git checkout ${_ENV_BRANCH}
+        sed -i "s|image: .*|image: ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/myapp:$SHORT_SHA|g" k8s/deployment.yaml
+        git commit -am "Update image to $SHORT_SHA"
+        git push origin ${_ENV_BRANCH}
 
 substitutions:
   _REGION: us-central1
