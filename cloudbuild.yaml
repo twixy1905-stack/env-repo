@@ -1,17 +1,15 @@
-# Cloud Build CD: applies manifests to GKE on every change in env-repo
-# Set substitutions when creating the trigger:
-# _CLUSTER=my-gke-cluster, _REGION=us-central1
 steps:
-# 1) Get GKE credentials
-- name: 'gcr.io/cloud-builders/gcloud'
-  id: Auth GKE
-  args: ['container','clusters','get-credentials','${_CLUSTER}','--region','${_REGION}','--project','$PROJECT_ID']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: Auth GKE
+    args: ['container','clusters','get-credentials','${_CLUSTER}','--region','${_REGION}','--project','$PROJECT_ID']
 
-# 2) Apply manifests
-- name: 'gcr.io/cloud-builders/kubectl'
-  id: Deploy
-  args: ['apply','-f','k8s/deployment.yaml']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy
+    args: ['apply','-f','k8s/deployment.yaml']
 
 substitutions:
   _CLUSTER: my-gke-cluster
   _REGION: us-central1
+
+options:
+  logging: CLOUD_LOGGING_ONLY
