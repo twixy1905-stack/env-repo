@@ -34,9 +34,6 @@ substitutions:
   _AR_REPO: my-repo
   _ENV_REPO: env-repo
   _ENV_BRANCH: main
-  
-options:
-  logging: CLOUD_LOGGING_ONLY
 
 images:
 - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/myapp:$SHORT_SHA'
