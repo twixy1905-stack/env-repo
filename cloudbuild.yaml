@@ -4,8 +4,13 @@ steps:
     args: ['container','clusters','get-credentials','${_CLUSTER}','--region','${_REGION}','--project','$PROJECT_ID']
 
   - name: 'gcr.io/cloud-builders/kubectl'
-    id: Deploy
-    args: ['apply','-f','k8s/deployment.yaml']
+  id: Deploy
+  entrypoint: bash
+  args:
+    - -c
+    - |
+      gcloud container clusters get-credentials ${_CLUSTER} --region ${_REGION} --project $PROJECT_ID
+      kubectl apply -f k8s/deployment.yaml
 
 substitutions:
   _CLUSTER: my-gke-cluster
