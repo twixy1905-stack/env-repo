@@ -11,8 +11,8 @@ steps:
 
         # 🔹 Skonfiguruj GitHub auth przez Secret Manager
         GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token)
-        git config --global credential.helper store
-        echo "https://$GITHUB_TOKEN@github.com" > ~/.git-credentials
+        git config --global credential.helper "store"
+        echo "https://$GITHUB_TOKEN@github.com/twixy1905-stack" > ~/.git-credentials
 
         git clone https://github.com/twixy1905-stack/${_ENV_REPO}.git && cd ${_ENV_REPO}
         git checkout ${_ENV_BRANCH}
