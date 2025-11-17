@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: hello-app
-          image: us-central1-docker.pkg.dev/devops-gke-12345/my-repo/myapp:de82cdf
+          image: us-central1-docker.pkg.dev/devops-gke-12345/my-repo/myapp:8574fb6
           ports:
             - containerPort: 8080
